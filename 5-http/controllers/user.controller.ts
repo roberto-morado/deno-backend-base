@@ -23,7 +23,7 @@ export async function getUserByIdController(req: Request): Promise<Response> {
   const userId = url.pathname.split("/").pop();
 
   if (!userId) {
-    return sendJson({ message: "User ID is required" }, 400);
+    return sendJson({ message: "User ID is required" }, { status: 400 });
   }
 
   const user = await getUserById(userId);
@@ -37,7 +37,7 @@ export async function getUserByEmailController(
   const email = url.searchParams.get("email");
 
   if (!email) {
-    return sendJson({ message: "Email is required" }, 400);
+    return sendJson({ message: "Email is required" }, { status: 400 });
   }
 
   const user = await getUserByEmail(email);
@@ -51,7 +51,7 @@ export async function getUserByIdentifierController(
   const identifier = url.searchParams.get("identifier");
 
   if (!identifier) {
-    return sendJson({ message: "Identifier is required" }, 400);
+    return sendJson({ message: "Identifier is required" }, { status: 400 });
   }
 
   const user = await getUserByIdentifier(identifier);
@@ -63,7 +63,7 @@ export async function updateUserController(req: Request): Promise<Response> {
   const userId = url.pathname.split("/").pop();
 
   if (!userId) {
-    return sendJson({ message: "User ID is required" }, 400);
+    return sendJson({ message: "User ID is required" }, { status: 400 });
   }
 
   const body = await req.json();
@@ -77,7 +77,7 @@ export async function deleteUserController(req: Request): Promise<Response> {
   const userId = url.pathname.split("/").pop();
 
   if (!userId) {
-    return sendJson({ message: "User ID is required" }, 400);
+    return sendJson({ message: "User ID is required" }, { status: 400 });
   }
 
   await deleteUser(userId);
