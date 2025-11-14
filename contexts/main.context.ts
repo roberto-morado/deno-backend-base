@@ -1,9 +1,10 @@
-import { createDrizzleClient } from "../database/drizzle/drizzle.ts";
-import { UserDrizzleRepository } from "../database/drizzle/repositories/user.repository.ts";
+import { createKvClient } from "../database/kv/kv.ts";
+import { UserKvRepository } from "../database/kv/repositories/user.repository.ts";
 import { Context } from "@dest/context.ts";
 
-export function initializeMainContext(context: Context) {
-  context.bind("drizzle-client", createDrizzleClient());
+export async function initializeMainContext(context: Context) {
+  const kvClient = await createKvClient();
+  context.bind("kv-client", kvClient);
 
-  context.bind("user-repository", UserDrizzleRepository);
+  context.bind("user-repository", UserKvRepository);
 }
