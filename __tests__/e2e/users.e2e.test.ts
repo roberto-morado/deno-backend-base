@@ -4,11 +4,11 @@ import { initializeE2EContext } from "../../contexts/e2e.context.ts";
 import { UserEntity } from "../../1-entities/user.entity.ts";
 import { createTestServer } from "../create-test-server.ts";
 
-const testServer = createTestServer();
-await initializeE2EContext(context);
-
 // TODO: reuse generic e2e tests
 Deno.test("Users E2E", async (t) => {
+  const testServer = createTestServer();
+  await initializeE2EContext(context);
+
   const userMock = {
     email: "test@test.com",
     firstName: "Testerson",
