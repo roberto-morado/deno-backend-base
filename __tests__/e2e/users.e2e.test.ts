@@ -15,6 +15,7 @@ Deno.test("Users E2E", async (t) => {
     lastName: "Testhonson",
     identifier: "123",
     password: "testing123#",
+    role: "user",
   } as UserEntity;
 
   await t.step("should return error 400 when no body is passed", async () => {

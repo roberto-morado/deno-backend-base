@@ -8,6 +8,7 @@ export const UserSchema = z.object(
     email: z.string().email(),
     identifier: z.string().min(1),
     password: z.string().min(8),
+    role: z.enum(["admin", "user"]).default("user"),
   },
   {
     description: "UserSchema",
