@@ -59,7 +59,7 @@ Deno.test("Users Unit - createUser usecase", async (t) => {
     using userRepositoryStub = stub(
       GenericTestRepository,
       "create",
-      () => ({} as UserEntity),
+      GenericTestRepository.create,
     );
     const error = await assertRejects(
       async () =>
