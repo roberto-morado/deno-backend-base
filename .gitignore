@@ -1,3 +1,11 @@
 node_modules
 .env
 database/database.sqlite*
+
+# Deno KV local database
+*.db
+*.db-shm
+*.db-wal
+kv.sqlite3
+kv.sqlite3-shm
+kv.sqlite3-wal

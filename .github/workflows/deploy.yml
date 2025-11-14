@@ -1,0 +1,60 @@
+name: Deploy to Deno Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Cache Deno dependencies
+        run: deno cache main.ts
+
+      - name: Run unit tests
+        run: deno task test:unit
+
+      - name: Run E2E tests
+        run: deno task test:e2e
+
+  deploy:
+    name: Deploy to Deno Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Upload to Deno Deploy
+        uses: denoland/deployctl@v1
+        with:
+          project: "your-project-name"
+          entrypoint: "main.ts"
+          root: "."
+          # Token is automatically picked up from DENO_DEPLOY_TOKEN secret
+          # Or uses OIDC authentication (recommended)
