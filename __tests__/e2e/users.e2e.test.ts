@@ -3,7 +3,6 @@ import { context } from "../../utils/context.ts";
 import { initializeE2EContext } from "../../contexts/e2e.context.ts";
 import { UserEntity } from "../../1-entities/user.entity.ts";
 import { createTestServer } from "../create-test-server.ts";
-import { DrizzleTestClient } from "../create-test-database.ts";
 
 const testServer = createTestServer();
 await initializeE2EContext(context);
@@ -153,6 +152,6 @@ Deno.test("Users E2E", async (t) => {
     assertEquals(responseBody, { message: "Bad Request" });
   });
 
-  const databaseClient = context.get("drizzle-client") as DrizzleTestClient;
-  await databaseClient.client.close();
+  const kvClient = context.get("kv-client") as Deno.Kv;
+  kvClient.close();
 });
