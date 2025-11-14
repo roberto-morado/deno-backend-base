@@ -8,11 +8,11 @@ import {
   updateUserController,
 } from "./controllers/user.controller.ts";
 
-type ControllerType = (req: Request) => Promise<Response> | Response;
+type ControllerType = (ctx: Context) => Promise<Response> | Response;
 
 function handleRoute(controller: ControllerType) {
   return (ctx: Context) => {
-    return controller(ctx.req.raw);
+    return controller(ctx);
   };
 }
 
