@@ -3,13 +3,17 @@ import { UserEntity } from "../1-entities/user.entity.ts";
 import { validateZodSchema } from "../2-validations/mod.ts";
 import { UserSchema } from "../2-validations/user.validations.ts";
 import { UserRepository } from "../3-repositories/user.repository.ts";
+import { hashPassword } from "../utils/password.ts";
 
 export async function createUser(data: UserEntity) {
   const userRepository = context.get("user-repository") as UserRepository;
   const newUser = validateZodSchema(data, UserSchema);
 
-  // TODO: hash user password
-  const createdUser = await userRepository.create(newUser);
+  // Hash password before storing
+  const hashedPassword = await hashPassword(newUser.password);
+  const userWithHashedPassword = { ...newUser, password: hashedPassword };
+
+  const createdUser = await userRepository.create(userWithHashedPassword);
 
   if (!createdUser) {
     throw new Error("Error creating user");
@@ -58,8 +62,14 @@ export async function updateUser(userId: string, data: Partial<UserEntity>) {
     throw new Error("No data provided for update");
   }
 
-  // TODO: hash user password if it's being updated
-  const updatedUser = await userRepository.update(userId, data);
+  // Hash password if it's being updated
+  let updateData = data;
+  if (data.password) {
+    const hashedPassword = await hashPassword(data.password);
+    updateData = { ...data, password: hashedPassword };
+  }
+
+  const updatedUser = await userRepository.update(userId, updateData);
 
   return updatedUser;
 }
