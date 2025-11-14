@@ -74,8 +74,25 @@ deployctl deploy --project=your-project-name main.ts
 ### Required: None!
 Your app uses Deno KV which is automatically available on Deno Deploy. No database connection strings or credentials needed.
 
+### Recommended: Admin User Setup
+Configure these variables to automatically create an admin user on deployment:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `USER_ADMIN` | Email for admin account | `admin@example.com` |
+| `USER_PASSWORD` | Password for admin account | `SecureP@ssw0rd!` |
+
+**Setup Instructions:**
+1. Go to your Deno Deploy project dashboard
+2. Navigate to Settings → Environment Variables
+3. Add `USER_ADMIN` with your desired admin email
+4. Add `USER_PASSWORD` with a strong password
+5. Deploy or redeploy your application
+
+The admin user will be created automatically on startup. If the user already exists, creation is skipped. See `setup/README.md` for more details.
+
 ### Optional Environment Variables
-If you want to add any custom configuration:
+For additional configuration:
 
 1. Go to your Deno Deploy project dashboard
 2. Navigate to Settings → Environment Variables

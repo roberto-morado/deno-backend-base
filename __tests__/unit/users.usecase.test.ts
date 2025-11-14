@@ -21,6 +21,7 @@ Deno.test("Users Unit - createUser usecase", async (t) => {
     identifier: "12345678",
     email: "johndoe@example.com",
     password: "mysecretpassword",
+    role: "user",
   };
 
   await t.step(
@@ -58,7 +59,7 @@ Deno.test("Users Unit - createUser usecase", async (t) => {
     using userRepositoryStub = stub(
       GenericTestRepository,
       "create",
-      () => ({} as UserEntity),
+      GenericTestRepository.create,
     );
     const error = await assertRejects(
       async () =>

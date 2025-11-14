@@ -1,11 +1,16 @@
 import { Hono } from "hono";
 import { initializeHTTPRoutes } from "./routes.ts";
 import { initializeHTTPMiddlewares } from "./middlewares.ts";
+import { initializeFrontendRoutes } from "./frontend/routes.tsx";
 
 export function initializeHTTPServer() {
   const app = new Hono();
 
   initializeHTTPMiddlewares(app);
+
+  const frontend = initializeFrontendRoutes();
+  app.route("/", frontend);
+
   initializeHTTPRoutes(app);
 
   Deno.serve(

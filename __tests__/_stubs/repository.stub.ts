@@ -17,6 +17,7 @@ function findById(id: string): Promise<UserWithoutPassword | null> {
     firstName: "Mock",
     lastName: "User",
     identifier: "mock-123",
+    role: "user",
   });
 }
 
@@ -27,6 +28,7 @@ function findByEmail(email: string): Promise<UserWithoutPassword | null> {
     firstName: "Mock",
     lastName: "User",
     identifier: "mock-123",
+    role: "user",
   });
 }
 
@@ -39,6 +41,7 @@ function findByIdentifier(
     firstName: "Mock",
     lastName: "User",
     identifier,
+    role: "user",
   });
 }
 
@@ -52,6 +55,7 @@ function update(
     firstName: data.firstName || "Mock",
     lastName: data.lastName || "User",
     identifier: data.identifier || "mock-123",
+    role: data.role || "user",
   });
 }
 
