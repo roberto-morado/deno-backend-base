@@ -17,3 +17,54 @@ export async function createUser(data: UserEntity) {
 
   return createdUser;
 }
+
+export async function getUserById(userId: string) {
+  const userRepository = context.get("user-repository") as UserRepository;
+  const user = await userRepository.findById(userId);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+}
+
+export async function getUserByEmail(email: string) {
+  const userRepository = context.get("user-repository") as UserRepository;
+  const user = await userRepository.findByEmail(email);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+}
+
+export async function getUserByIdentifier(identifier: string) {
+  const userRepository = context.get("user-repository") as UserRepository;
+  const user = await userRepository.findByIdentifier(identifier);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+}
+
+export async function updateUser(userId: string, data: Partial<UserEntity>) {
+  const userRepository = context.get("user-repository") as UserRepository;
+
+  if (Object.keys(data).length === 0) {
+    throw new Error("No data provided for update");
+  }
+
+  // TODO: hash user password if it's being updated
+  const updatedUser = await userRepository.update(userId, data);
+
+  return updatedUser;
+}
+
+export async function deleteUser(userId: string) {
+  const userRepository = context.get("user-repository") as UserRepository;
+  await userRepository.delete(userId);
+}
