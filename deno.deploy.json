@@ -1,0 +1,27 @@
+{
+  "deploy": {
+    "project": "your-project-name",
+    "entrypoint": "main.ts",
+    "include": [
+      "1-entities/**",
+      "2-validations/**",
+      "3-repositories/**",
+      "4-use-cases/**",
+      "5-http/**",
+      "_lib/**",
+      "contexts/**",
+      "database/**",
+      "utils/**",
+      "main.ts",
+      "deno.json",
+      "deno.lock"
+    ],
+    "exclude": [
+      "__tests__/**",
+      "*.md",
+      ".git/**",
+      ".github/**",
+      "deno.deploy.json"
+    ]
+  }
+}
