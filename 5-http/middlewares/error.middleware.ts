@@ -1,11 +1,7 @@
 import { Context } from "hono";
-import postgres from "postgres";
-import { messages } from "@electric-sql/pglite";
 import { sendJson } from "@dest/http/responses.ts";
 import { HttpError } from "@dest/errors/http.error.ts";
 import { ValidationError } from "@dest/errors/validation.error.ts";
-
-// TODO: unit test
 
 export function errorMiddleware(error: Error, _ctx: Context) {
   if (error instanceof HttpError) {
@@ -19,13 +15,5 @@ export function errorMiddleware(error: Error, _ctx: Context) {
     );
   }
 
-  if (error instanceof postgres.PostgresError) {
-    return sendJson({ message: "Bad Request" }, { status: 400 });
-  }
-
-  if (error instanceof messages.DatabaseError) {
-    return sendJson({ message: "Bad Request" }, { status: 400 });
-  }
-
-  return sendJson({ message: "Internal Server Error" }, { status: 500 });
+  return sendJson({ message: "Bad Request" }, { status: 400 });
 }
