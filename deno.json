@@ -10,10 +10,10 @@
     "@std/cli": "jsr:@std/cli@1.0.6"
   },
   "tasks": {
-    "start": "deno run -A main.ts",
-    "test:unit": "deno test -A ./__tests__/unit",
-    "test:e2e": "deno test -A --fail-fast ./__tests__/e2e",
-    "users": "deno run -A scripts/users.ts"
+    "start": "deno run -A --unstable-kv main.ts",
+    "test:unit": "deno test -A --unstable-kv ./__tests__/unit",
+    "test:e2e": "deno test -A --unstable-kv --fail-fast ./__tests__/e2e",
+    "users": "deno run -A --unstable-kv scripts/users.ts"
   },
   "compilerOptions": {
     "strict": true,
